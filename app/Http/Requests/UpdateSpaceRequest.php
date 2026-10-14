@@ -43,7 +43,7 @@ class UpdateSpaceRequest extends FormRequest
             'collection_question' => ['sometimes', 'required', 'string', 'max:5000'],
             'theme' => ['sometimes', 'required', 'in:minimal_light,modern_dark,warm_friendly'],
             'rating_enabled' => ['sometimes', 'required', 'boolean'],
-            'fields_config' => ['sometimes', 'required', 'array'],
+            'fields_config' => ['sometimes', 'required', 'string'],
         ];
     }
 }

@@ -37,7 +37,7 @@ class StoreSpaceRequest extends FormRequest
             'collection_question' => ['required', 'string', 'max:5000'],
             'theme' => ['required', 'in:minimal_light,modern_dark,warm_friendly'],
             'rating_enabled' => ['required', 'boolean'],
-            'fields_config' => ['required', 'array'],
+            'fields_config' => ['required', 'string'],
         ];
     }
 }
