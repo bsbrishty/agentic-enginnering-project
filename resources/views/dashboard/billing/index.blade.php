@@ -34,10 +34,7 @@
         <div class="card">
             <h2>Upgrade to Pro</h2>
             <p>Pro gives you 25 spaces (vs 3) and 1,000 testimonials per space (vs 100).</p>
-            <a href="{{ route('dashboard.billing.index') }}/checkout" class="btn">Upgrade to Pro — $99/month</a>
-            <p style="font-size: 0.8rem; color: #888; margin-top: 0.5rem;">
-                Stripe Checkout integration is wired in a separate change. This link is a placeholder.
-            </p>
+            <a href="{{ route('dashboard.billing.checkout') }}" class="btn">Upgrade to Pro — $99/month</a>
         </div>
     @else
         <div class="card">
