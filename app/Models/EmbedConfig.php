@@ -28,6 +28,15 @@ class EmbedConfig extends Model
     protected $table = 'embed_configs';
 
     /**
+     * Route model binding uses `public_id` (the unguessable UUID v4) so the
+     * auto-increment `id` is never exposed in URLs. See public-routes spec.
+     */
+    public function getRouteKeyName(): string
+    {
+        return 'public_id';
+    }
+
+    /**
      * @var list<string>
      */
     protected $fillable = [

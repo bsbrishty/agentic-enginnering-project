@@ -34,6 +34,16 @@ class Space extends Model
     protected $table = 'spaces';
 
     /**
+     * Route model binding uses `public_slug` (the human-readable URL
+     * component). The slug is guessable; the controller additionally
+     * verifies the submitted `public_token` for write actions.
+     */
+    public function getRouteKeyName(): string
+    {
+        return 'public_slug';
+    }
+
+    /**
      * @var list<string>
      */
     protected $fillable = [
