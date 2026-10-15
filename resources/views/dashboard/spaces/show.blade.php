@@ -37,7 +37,8 @@
             <tbody>
                 <tr><th>Testimonials</th><td>{{ $space->testimonials_count }}</td></tr>
                 <tr><th>Theme</th><td>{{ ucwords(str_replace('_', ' ', $space->theme)) }}</td></tr>
-                <tr><th>Star ratings</th><td>{{ $space->rating_enabled ? 'Enabled' : 'Disabled' }}</td></tr>
+                <tr><th>Star ratings</th><td>{{ $space->star_ratings_enabled ? 'Enabled' : 'Disabled' }}</td></tr>
+                <tr><th>Accepting submissions</th><td>{{ $space->is_active ? 'Yes' : 'No' }}</td></tr>
                 <tr><th>Embeds</th><td>{{ $embedConfigs->count() }}</td></tr>
             </tbody>
         </table>

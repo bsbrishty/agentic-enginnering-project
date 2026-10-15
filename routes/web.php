@@ -5,8 +5,10 @@ use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\EmbedConfigController;
 use App\Http\Controllers\Dashboard\SpaceController;
 use App\Http\Controllers\Dashboard\TestimonialInboxController;
+use App\Http\Controllers\LocaleController;
 use App\Http\Controllers\Public\EmbedController;
 use App\Http\Controllers\Public\SpaceController as PublicSpaceController;
+use App\Http\Controllers\Webhook\StripeWebhookController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,15 +17,37 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 */
 
-Route::get('/c/{slug:slug}', [PublicSpaceController::class, 'show'])
+Route::get('/c/{space}', [PublicSpaceController::class, 'show'])
+    ->where('space', '[A-Za-z0-9]+(?:-[A-Za-z0-9]+)*')
     ->name('public.space.show');
 
-Route::post('/c/{slug:slug}', [PublicSpaceController::class, 'store'])
+Route::post('/c/{space}', [PublicSpaceController::class, 'store'])
+    ->where('space', '[A-Za-z0-9]+(?:-[A-Za-z0-9]+)*')
     ->middleware('throttle:public-submission')
     ->name('public.space.store');
 
-Route::get('/embed/{public_id}', [EmbedController::class, 'show'])
+Route::get('/embed/{embedConfig:public_id}', [EmbedController::class, 'show'])
     ->name('public.embed.show');
+
+/*
+|--------------------------------------------------------------------------
+| Locale switcher
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/lang/{locale}', [LocaleController::class, 'switch'])
+    ->where('locale', 'en|bn')
+    ->name('locale.switch');
+
+/*
+|--------------------------------------------------------------------------
+| Webhooks (no auth, no CSRF — Stripe signs the request)
+|--------------------------------------------------------------------------
+*/
+
+Route::post('/webhooks/stripe', [StripeWebhookController::class, 'handle'])
+    ->name('webhooks.stripe')
+    ->withoutMiddleware([\Illuminate\Foundation\Http\Middleware\VerifyCsrfToken::class]);
 
 /*
 |--------------------------------------------------------------------------
@@ -69,6 +93,8 @@ Route::middleware(['auth'])->prefix('dashboard')->name('dashboard.')->group(func
     // Billing
     Route::get('billing', [BillingController::class, 'index'])->name('billing.index');
     Route::get('billing/checkout', [BillingController::class, 'checkout'])->name('billing.checkout');
+    Route::post('billing/simulate', [BillingController::class, 'simulate'])->name('billing.simulate');
+    Route::post('billing/cancel-simulated', [BillingController::class, 'cancelSimulated'])->name('billing.cancel-simulated');
     Route::get('billing/success', [BillingController::class, 'success'])->name('billing.success');
     Route::get('billing/cancel', [BillingController::class, 'cancel'])->name('billing.cancel');
 });

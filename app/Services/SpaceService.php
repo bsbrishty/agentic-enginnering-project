@@ -42,6 +42,12 @@ class SpaceService
         // public_token. We do not pass them in $data.
         unset($data['public_slug'], $data['public_token']);
 
+        // Boolean checkboxes: missing == unchecked. Mirror the legacy
+        // `rating_enabled` from `star_ratings_enabled` when only one is set.
+        $data['is_active'] = (bool) ($data['is_active'] ?? true);
+        $data['star_ratings_enabled'] = (bool) ($data['star_ratings_enabled'] ?? $data['rating_enabled'] ?? false);
+        $data['rating_enabled'] = $data['star_ratings_enabled'];
+
         return $owner->spaces()->create($data);
     }
 
@@ -56,6 +62,13 @@ class SpaceService
 
         if (isset($data['fields_config'])) {
             $data['fields_config'] = $this->decodeFieldsConfig($data['fields_config']);
+        }
+
+        // Mirror the legacy rating_enabled with star_ratings_enabled.
+        if (array_key_exists('star_ratings_enabled', $data) && ! array_key_exists('rating_enabled', $data)) {
+            $data['rating_enabled'] = (bool) $data['star_ratings_enabled'];
+        } elseif (array_key_exists('rating_enabled', $data) && ! array_key_exists('star_ratings_enabled', $data)) {
+            $data['star_ratings_enabled'] = (bool) $data['rating_enabled'];
         }
 
         $space->update($data);

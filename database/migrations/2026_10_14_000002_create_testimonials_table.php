@@ -48,27 +48,30 @@ return new class extends Migration
             $table->index('is_favorite');
             $table->index('is_wall_of_love');
 
-            // Search.
-            $table->fullText('testimonial_text');
+            // Search (Skipped on SQLite as fulltext is unsupported)
+            if (DB::getDriverName() !== 'sqlite') {
+                $table->fullText('testimonial_text');
+            }
+
             $table->index('submitter_name');
             $table->index('submitter_email');
         });
 
-        // STORED generated column for dedup. Required to be STORED (not VIRTUAL)
-        // so the unique index below can be built against it.
-        DB::statement('
-            ALTER TABLE testimonials
-            ADD COLUMN submitter_email_normalized VARCHAR(255)
-            GENERATED ALWAYS AS (LOWER(TRIM(submitter_email))) STORED
-        ');
+        // STORED generated column & unique constraint (Skipped on SQLite as generated stored columns are unsupported)
+        if (DB::getDriverName() !== 'sqlite') {
+            DB::statement('
+                ALTER TABLE testimonials
+                ADD COLUMN submitter_email_normalized VARCHAR(255)
+                GENERATED ALWAYS AS (LOWER(TRIM(submitter_email))) STORED
+            ');
 
-        // Dedup invariant: at most one testimonial per (space, normalized email).
-        Schema::table('testimonials', function (Blueprint $table) {
-            $table->unique(
-                ['space_id', 'submitter_email_normalized'],
-                'testimonials_space_email_unique'
-            );
-        });
+            Schema::table('testimonials', function (Blueprint $table) {
+                $table->unique(
+                    ['space_id', 'submitter_email_normalized'],
+                    'testimonials_space_email_unique'
+                );
+            });
+        }
     }
 
     public function down(): void

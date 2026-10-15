@@ -31,7 +31,7 @@ class SpaceController extends Controller
     public function create(): View
     {
         return view('dashboard.spaces.create', [
-            'defaultFieldsConfig' => $this->defaultFieldsConfig(),
+            'defaultFieldsConfig' => Space::defaultFieldsConfig(),
         ]);
     }
 
@@ -90,23 +90,5 @@ class SpaceController extends Controller
         return redirect()
             ->route('dashboard.spaces.index')
             ->with('status', 'Space deleted.');
-    }
-
-    /**
-     * The default `fields_config` array for a freshly-created space.
-     * Per docs/data-model.md §3.2.1.
-     *
-     * @return array<int, array<string, mixed>>
-     */
-    private function defaultFieldsConfig(): array
-    {
-        return [
-            ['key' => 'name',             'type' => 'text',     'enabled' => true,  'required' => true],
-            ['key' => 'email',            'type' => 'email',    'enabled' => true,  'required' => true],
-            ['key' => 'testimonial_text', 'type' => 'textarea', 'enabled' => true,  'required' => true],
-            ['key' => 'company',          'type' => 'text',     'enabled' => false, 'required' => false],
-            ['key' => 'social_links',     'type' => 'url',      'enabled' => false, 'required' => false],
-            ['key' => 'profile_photo',    'type' => 'file',     'enabled' => false, 'required' => false],
-        ];
     }
 }

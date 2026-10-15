@@ -33,8 +33,17 @@
 
 <div class="form-row">
     <label>
-        <input type="checkbox" name="rating_enabled" value="1" @checked(old('rating_enabled', $space->rating_enabled ?? false))>
+        <input type="checkbox" name="star_ratings_enabled" value="1"
+            @checked(old('star_ratings_enabled', $space->star_ratings_enabled ?? $space->rating_enabled ?? false))>
         Enable star ratings (1–5)
+    </label>
+</div>
+
+<div class="form-row">
+    <label>
+        <input type="checkbox" name="is_active" value="1"
+            @checked(old('is_active', $space->is_active ?? true))>
+        Accepting new submissions
     </label>
 </div>
 

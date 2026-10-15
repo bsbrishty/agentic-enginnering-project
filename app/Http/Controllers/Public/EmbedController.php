@@ -5,13 +5,13 @@ namespace App\Http\Controllers\Public;
 use App\Http\Controllers\Controller;
 use App\Models\EmbedConfig;
 use Illuminate\Http\Request;
-use Illuminate\View\View;
+use Illuminate\Http\Response;
 
 /**
  * Public embed widget iframe.
  *
  * Route (registered in routes/web.php):
- *   GET /embed/{public_id}  -> show
+ *   GET /embed/{embedConfig:public_id}  -> show
  *
  * No authentication. The view is loaded inside an iframe on third-party
  * sites. The eligible-testimonials query is the *read path* enforcement
@@ -22,7 +22,7 @@ class EmbedController extends Controller
     /**
      * Render the embed widget.
      */
-    public function show(Request $request, EmbedConfig $embedConfig): View
+    public function show(Request $request, EmbedConfig $embedConfig): Response
     {
         $space = $embedConfig->space;
 

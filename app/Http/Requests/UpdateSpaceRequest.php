@@ -42,7 +42,9 @@ class UpdateSpaceRequest extends FormRequest
             'subtitle' => ['sometimes', 'nullable', 'string', 'max:255'],
             'collection_question' => ['sometimes', 'required', 'string', 'max:5000'],
             'theme' => ['sometimes', 'required', 'in:minimal_light,modern_dark,warm_friendly'],
-            'rating_enabled' => ['sometimes', 'required', 'boolean'],
+            'rating_enabled' => ['sometimes', 'nullable', 'boolean'],
+            'star_ratings_enabled' => ['sometimes', 'nullable', 'boolean'],
+            'is_active' => ['sometimes', 'nullable', 'boolean'],
             'fields_config' => ['sometimes', 'required', 'string'],
         ];
     }

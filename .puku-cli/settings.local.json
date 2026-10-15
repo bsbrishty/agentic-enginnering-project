@@ -1,0 +1,43 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "WebSearch",
+      "Bash(curl:*)",
+      "Bash(dir:*)",
+      "Bash(cd /c/Users/BS00865/Downloads/\"agentic enginnering project\")",
+      "Bash(php artisan:*)",
+      "Bash(where php.exe)",
+      "Read(//c//**)",
+      "Bash(where composer:*)",
+      "Bash(find /c -name php.exe -maxdepth 4)",
+      "Read(//usr/**)",
+      "Read(//c/Users/BS00865/AppData/Local/Programs//**)",
+      "Bash(pacman --version)",
+      "Bash(apt-get --version)",
+      "Bash(apt-get install:*)",
+      "Bash(winget --version)",
+      "Bash(choco --version)",
+      "Bash(scoop --version)",
+      "Bash(winget install:*)",
+      "Bash(winget list:*)",
+      "Bash(winget show:*)",
+      "Read(//c/ProgramData/chocolatey/**)",
+      "Read(//c/Program Files/**)",
+      "Read(//c/Program Files \\(x86\\)/**)",
+      "Bash(where php:*)",
+      "Bash(php --version)",
+      "Bash(/c/Users/BS00865/AppData/Local/Microsoft/WinGet/Packages/PHP.PHP.8.3_Microsoft.Winget.Source_8wekyb3d8bbwe/php.exe --version)",
+      "Bash(export PATH=\"/c/Users/BS00865/AppData/Local/Microsoft/WinGet/Packages/PHP.PHP.8.3_Microsoft.Winget.Source_8wekyb3d8bbwe:$PATH\")",
+      "Bash(/c/composer/composer.phar --version)",
+      "Bash(/c/Users/BS00865/AppData/Local/Microsoft/WinGet/Packages/PHP.PHP.8.3_Microsoft.Winget.Source_8wekyb3d8bbwe/php.exe /c/composer/composer.phar --version)",
+      "Bash(PATH=\"/c/Users/BS00865/AppData/Local/Microsoft/WinGet/Packages/PHP.PHP.8.3_Microsoft.Winget.Source_8wekyb3d8bbwe:$PATH\" php --version)",
+      "Bash(chmod +x /c/Users/BS00865/bin/php /c/Users/BS00865/bin/composer)",
+      "Bash(composer --version)",
+      "Bash(/c/Users/BS00865/bin/php artisan:*)",
+      "Bash(/c/Users/BS00865/bin/php artisan tinker --execute=\":*)",
+      "Bash(/c/Users/BS00865/bin/php -r \":*)"
+    ]
+  }
+}

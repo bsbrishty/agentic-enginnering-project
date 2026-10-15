@@ -3,10 +3,18 @@
 @section('title', 'Register')
 
 @section('content')
-    <h1>Create your account</h1>
+    <div class="guest-brand">
+        <span class="brand-mark">💬</span>
+        <span class="brand-text">TestimonialHub</span>
+    </div>
+
+    <div class="guest-header">
+        <h1>Create your account ✨</h1>
+        <p class="subtitle">Start collecting beautiful testimonials in minutes.</p>
+    </div>
 
     @if ($errors->any())
-        <div class="errors">
+        <div class="errors" role="alert">
             <ul>
                 @foreach ($errors->all() as $error)
                     <li>{{ $error }}</li>
@@ -15,24 +23,37 @@
         </div>
     @endif
 
-    <form method="POST" action="{{ route('register') }}">
+    <form class="guest-form" method="POST" action="{{ route('register') }}">
         @csrf
-        <label for="name">Name</label>
-        <input type="text" name="name" id="name" value="{{ old('name') }}" required autofocus>
 
-        <label for="email">Email</label>
-        <input type="email" name="email" id="email" value="{{ old('email') }}" required>
+        <div class="field">
+            <label for="name"><span class="ico">👤</span> Name</label>
+            <input type="text" name="name" id="name" value="{{ old('name') }}"
+                   placeholder="Your full name" required autofocus autocomplete="name">
+        </div>
 
-        <label for="password">Password</label>
-        <input type="password" name="password" id="password" required>
+        <div class="field">
+            <label for="email"><span class="ico">✉️</span> Email</label>
+            <input type="email" name="email" id="email" value="{{ old('email') }}"
+                   placeholder="you@example.com" required autocomplete="email">
+        </div>
 
-        <label for="password_confirmation">Confirm password</label>
-        <input type="password" name="password_confirmation" id="password_confirmation" required>
+        <div class="field">
+            <label for="password"><span class="ico">🔑</span> Password</label>
+            <input type="password" name="password" id="password"
+                   placeholder="At least 8 characters" required autocomplete="new-password">
+        </div>
 
-        <button type="submit">Register</button>
+        <div class="field">
+            <label for="password_confirmation"><span class="ico">✅</span> Confirm password</label>
+            <input type="password" name="password_confirmation" id="password_confirmation"
+                   placeholder="Repeat your password" required autocomplete="new-password">
+        </div>
+
+        <button type="submit">🚀 Create account</button>
     </form>
 
-    <p class="alt">
-        Already have an account? <a href="{{ route('login') }}">Log in</a>
-    </p>
+    <div class="guest-footer">
+        <p>Already have an account? <a href="{{ route('login') }}">Log in</a></p>
+    </div>
 @endsection

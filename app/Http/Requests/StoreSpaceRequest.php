@@ -36,7 +36,9 @@ class StoreSpaceRequest extends FormRequest
             'subtitle' => ['nullable', 'string', 'max:255'],
             'collection_question' => ['required', 'string', 'max:5000'],
             'theme' => ['required', 'in:minimal_light,modern_dark,warm_friendly'],
-            'rating_enabled' => ['required', 'boolean'],
+            'rating_enabled' => ['nullable', 'boolean'],
+            'star_ratings_enabled' => ['nullable', 'boolean'],
+            'is_active' => ['nullable', 'boolean'],
             'fields_config' => ['required', 'string'],
         ];
     }

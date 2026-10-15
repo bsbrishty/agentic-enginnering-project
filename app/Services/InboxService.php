@@ -51,6 +51,19 @@ class InboxService
             $query->where('consent_state', $filters['consent_state']);
         }
 
+        // "status" is a higher-level convenience filter that maps to one
+        // of the boolean flags. PRD §7 expects filters by space / consent /
+        // status (favorite / wall of love / hidden / visible).
+        if (! empty($filters['status'])) {
+            match ($filters['status']) {
+                'favorite'     => $query->where('is_favorite', true),
+                'wall_of_love' => $query->where('is_wall_of_love', true),
+                'hidden'       => $query->where('is_hidden', true),
+                'visible'      => $query->where('is_hidden', false),
+                default        => null,
+            };
+        }
+
         foreach (['is_favorite', 'is_wall_of_love', 'is_hidden'] as $flag) {
             if (isset($filters[$flag]) && $filters[$flag] !== '') {
                 $query->where($flag, (bool) $filters[$flag]);

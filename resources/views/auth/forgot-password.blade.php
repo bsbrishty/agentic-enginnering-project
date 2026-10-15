@@ -3,15 +3,22 @@
 @section('title', 'Forgot password')
 
 @section('content')
-    <h1>Forgot your password?</h1>
-    <p>Enter your email and we'll send you a reset link.</p>
+    <div class="guest-brand">
+        <span class="brand-mark">💬</span>
+        <span class="brand-text">TestimonialHub</span>
+    </div>
+
+    <div class="guest-header">
+        <h1>Forgot your password? 🔒</h1>
+        <p class="subtitle">Enter your email and we&apos;ll send you a reset link.</p>
+    </div>
 
     @if (session('status'))
-        <div class="status">{{ session('status') }}</div>
+        <div class="status" role="status">🎉 {{ session('status') }}</div>
     @endif
 
     @if ($errors->any())
-        <div class="errors">
+        <div class="errors" role="alert">
             <ul>
                 @foreach ($errors->all() as $error)
                     <li>{{ $error }}</li>
@@ -20,15 +27,19 @@
         </div>
     @endif
 
-    <form method="POST" action="{{ route('password.email') }}">
+    <form class="guest-form" method="POST" action="{{ route('password.email') }}">
         @csrf
-        <label for="email">Email</label>
-        <input type="email" name="email" id="email" value="{{ old('email') }}" required autofocus>
 
-        <button type="submit">Email password reset link</button>
+        <div class="field">
+            <label for="email"><span class="ico">✉️</span> Email</label>
+            <input type="email" name="email" id="email" value="{{ old('email') }}"
+                   placeholder="you@example.com" required autofocus autocomplete="username">
+        </div>
+
+        <button type="submit">📨 Email password reset link</button>
     </form>
 
-    <p class="alt">
-        <a href="{{ route('login') }}">Back to log in</a>
-    </p>
+    <div class="guest-footer">
+        <p><a href="{{ route('login') }}">← Back to log in</a></p>
+    </div>
 @endsection

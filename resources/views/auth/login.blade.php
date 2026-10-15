@@ -3,10 +3,18 @@
 @section('title', 'Log in')
 
 @section('content')
-    <h1>Log in</h1>
+    <div class="guest-brand">
+        <span class="brand-mark">💬</span>
+        <span class="brand-text">TestimonialHub</span>
+    </div>
+
+    <div class="guest-header">
+        <h1>Welcome back! 👋</h1>
+        <p class="subtitle">Enter your credentials to access your dashboard.</p>
+    </div>
 
     @if ($errors->any())
-        <div class="errors">
+        <div class="errors" role="alert">
             <ul>
                 @foreach ($errors->all() as $error)
                     <li>{{ $error }}</li>
@@ -15,23 +23,31 @@
         </div>
     @endif
 
-    <form method="POST" action="{{ route('login') }}">
+    <form class="guest-form" method="POST" action="{{ route('login') }}">
         @csrf
-        <label for="email">Email</label>
-        <input type="email" name="email" id="email" value="{{ old('email') }}" required autofocus>
 
-        <label for="password">Password</label>
-        <input type="password" name="password" id="password" required>
+        <div class="field">
+            <label for="email"><span class="ico">✉️</span> Email</label>
+            <input type="email" name="email" id="email" value="{{ old('email') }}"
+                   placeholder="you@example.com" required autofocus autocomplete="username">
+        </div>
 
-        <label>
-            <input type="checkbox" name="remember" value="1"> Remember me
+        <div class="field">
+            <label for="password"><span class="ico">🔑</span> Password</label>
+            <input type="password" name="password" id="password"
+                   placeholder="••••••••" required autocomplete="current-password">
+        </div>
+
+        <label class="remember">
+            <input type="checkbox" name="remember" value="1" {{ old('remember') ? 'checked' : '' }}>
+            <span>Remember me</span>
         </label>
 
-        <button type="submit">Log in</button>
+        <button type="submit">🚀 Log in</button>
     </form>
 
-    <p class="alt">
-        <a href="{{ route('password.request') }}">Forgot your password?</a><br>
-        Don't have an account? <a href="{{ route('register') }}">Register</a>
-    </p>
+    <div class="guest-footer">
+        <p><a href="{{ route('password.request') }}">Forgot your password?</a></p>
+        <p>Don&apos;t have an account? <a href="{{ route('register') }}">Register</a></p>
+    </div>
 @endsection
